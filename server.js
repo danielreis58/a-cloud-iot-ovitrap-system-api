@@ -39,7 +39,7 @@ app.get('/', (req, res) => {
 
       keys.forEach(element => {
 
-        stringLinks += `<p>${element}</p><img src="http://18.228.232.220:8001//mosquitos/files/${element}" alt="" width="400" height="320">`
+        stringLinks += `<p>${element}</p><img src="http://18.228.232.220:8001/mosquitos/files/${element}" alt="" width="400" height="320">`
 
       });
       page = `<html>
