@@ -2,11 +2,11 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
-let larvaRoute = require('./app/routers/larvaRoute');
-let mosquitoRoute = require('./app/routers/mosquitoRoute');
+let larvaRoute = require('./routers/larvaRoute');
+let mosquitoRoute = require('./routers/mosquitoRoute');
 
-const s3 = require('./app/config/s3.config.js');
-const env = require('./app/config/s3.env.js');
+const s3 = require('./config/s3.config.js');
+const env = require('./config/s3.env.js');
 
 app.use(cors());
 

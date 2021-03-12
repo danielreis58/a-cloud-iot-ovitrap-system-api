@@ -1,10 +1,10 @@
 {
-  "name": "nodejsuploadfileamazons3",
+  "name": "smartovitrapsdashboard",
   "version": "1.0.0",
-  "description": "Node.js Express RestAPIs upload file to Amazon S3 using Multer, AWS-SDK",
-  "main": "server.js",
+  "description": "A Smart Ovitrap Dashboard",
+  "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "nodemon src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -19,13 +19,19 @@
     "Aws",
     "SDK"
   ],
-  "author": "grokonez.com",
+  "author": "smartovitrap",
   "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.302.0",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "express": "^4.16.3",
+    "joi": "^17.4.0",
+    "jsonwebtoken": "^8.5.1",
     "moment": "^2.27.0",
-    "multer": "^1.3.1"
+    "multer": "^1.3.1",
+    "pg": "^8.5.1",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^6.5.0"
   }
 }
