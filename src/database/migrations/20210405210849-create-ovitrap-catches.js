@@ -1,15 +1,22 @@
 "use strict";
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable("blacklists", {
+    await queryInterface.createTable("ovitrap_catches", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      token: {
-        type: Sequelize.TEXT,
+      number: {
+        type: Sequelize.INTEGER,
+      },
+      ovitrap_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: { model: "ovitraps", key: "id" },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
       created_at: {
         allowNull: false,
@@ -22,6 +29,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable("Blacklists");
+    await queryInterface.dropTable("ovitrap_catches");
   },
 };

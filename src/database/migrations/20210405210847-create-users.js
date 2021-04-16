@@ -27,6 +27,13 @@ module.exports = {
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       },
+      company_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: { model: "companies", key: "id" },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE,

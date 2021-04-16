@@ -1,0 +1,107 @@
+"use strict";
+
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.bulkInsert(
+      "ovitrap_lat_langs",
+      [
+        {
+          latitude: 13.864862,
+          longtude: 71.5568,
+          ovitrap_id: 1,
+          created_at: new Date(),
+          updated_at: new Date(),
+        },
+        {
+          latitude: 13.864862,
+          longtude: 71.5568,
+          ovitrap_id: 1,
+          created_at: new Date(),
+          updated_at: new Date(),
+        },
+        {
+          latitude: 13.864862,
+          longtude: 71.5568,
+          ovitrap_id: 1,
+          created_at: new Date(),
+          updated_at: new Date(),
+        },
+        {
+          latitude: 13.864862,
+          longtude: 71.5568,
+          ovitrap_id: 1,
+          created_at: new Date(),
+          updated_at: new Date(),
+        },
+        {
+          latitude: 13.864862,
+          longtude: 71.5568,
+          ovitrap_id: 1,
+          created_at: new Date(),
+          updated_at: new Date(),
+        },
+        {
+          latitude: 13.864862,
+          longtude: 71.5568,
+          ovitrap_id: 1,
+          created_at: new Date(),
+          updated_at: new Date(),
+        },
+        {
+          latitude: 13.864862,
+          longtude: 71.5568,
+          ovitrap_id: 1,
+          created_at: new Date(),
+          updated_at: new Date(),
+        },
+        {
+          latitude: 13.864862,
+          longtude: 71.5568,
+          ovitrap_id: 1,
+          created_at: new Date(),
+          updated_at: new Date(),
+        },
+        {
+          latitude: 13.864862,
+          longtude: 71.5568,
+          ovitrap_id: 1,
+          created_at: new Date(),
+          updated_at: new Date(),
+        },
+        {
+          latitude: 32.4534,
+          longtude: 28.4456,
+          ovitrap_id: 2,
+          created_at: new Date(),
+          updated_at: new Date(),
+        },
+        {
+          latitude: 32.4534,
+          longtude: 28.4456,
+          ovitrap_id: 2,
+          created_at: new Date(),
+          updated_at: new Date(),
+        },
+        {
+          latitude: 32.4534,
+          longtude: 28.4456,
+          ovitrap_id: 2,
+          created_at: new Date(),
+          updated_at: new Date(),
+        },
+        {
+          latitude: 32.4534,
+          longtude: 28.4456,
+          ovitrap_id: 2,
+          created_at: new Date(),
+          updated_at: new Date(),
+        },
+      ],
+      {}
+    );
+  },
+
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.bulkDelete("ovitrap_lat_langs", null, {});
+  },
+};
