@@ -1,7 +1,6 @@
-"use strict";
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable("ovitraps", {
+    await queryInterface.createTable('ovitraps', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -20,16 +19,16 @@ module.exports = {
       user_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: "users", key: "id" },
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE",
+        references: { model: 'users', key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       company_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: "companies", key: "id" },
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE",
+        references: { model: 'companies', key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       created_at: {
         allowNull: false,
@@ -42,6 +41,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable("ovitraps");
+    await queryInterface.dropTable('ovitraps');
   },
 };

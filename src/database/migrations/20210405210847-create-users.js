@@ -1,7 +1,6 @@
-"use strict";
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable("users", {
+    await queryInterface.createTable('users', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -23,16 +22,16 @@ module.exports = {
       profile_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: "profiles", key: "id" },
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE",
+        references: { model: 'profiles', key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       company_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: "companies", key: "id" },
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE",
+        references: { model: 'companies', key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       created_at: {
         allowNull: false,
@@ -45,6 +44,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable("users");
+    await queryInterface.dropTable('users');
   },
 };

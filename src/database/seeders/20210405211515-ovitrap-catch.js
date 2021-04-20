@@ -1,9 +1,7 @@
-"use strict";
-
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert(
-      "ovitrap_catches",
+      'ovitrap_catches',
       [
         {
           number: 1,
@@ -84,11 +82,11 @@ module.exports = {
           updated_at: new Date(),
         },
       ],
-      {}
+      {},
     );
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete("ovitrap_catches", null, {});
+    await queryInterface.bulkDelete('ovitrap_catches', null, {});
   },
 };

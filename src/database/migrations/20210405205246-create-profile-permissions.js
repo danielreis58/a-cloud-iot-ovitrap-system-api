@@ -1,7 +1,6 @@
-"use strict";
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable("profile_permissions", {
+    await queryInterface.createTable('profile_permissions', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -11,16 +10,16 @@ module.exports = {
       profile_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: "profiles", key: "id" },
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE",
+        references: { model: 'profiles', key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       permission_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: "permissions", key: "id" },
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE",
+        references: { model: 'permissions', key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       created_at: {
         allowNull: false,
@@ -33,6 +32,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable("profile_permissions");
+    await queryInterface.dropTable('profile_permissions');
   },
 };

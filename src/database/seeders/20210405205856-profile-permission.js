@@ -1,9 +1,7 @@
-"use strict";
-
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert(
-      "profile_permissions",
+      'profile_permissions',
       [
         {
           profile_id: 1,
@@ -60,11 +58,11 @@ module.exports = {
           updated_at: new Date(),
         },
       ],
-      {}
+      {},
     );
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete("profile_permissions", null, {});
+    await queryInterface.bulkDelete('profile_permissions', null, {});
   },
 };

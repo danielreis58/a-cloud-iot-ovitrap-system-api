@@ -27,13 +27,13 @@ export const xorB = (a, b) => orB(a, b) && nandB(a, b);
 export const isValid = (el) => el || el === 0;
 export const typeOf = (obj, type) => isValid(obj) && typeof obj === type;
 export const isArray = (array) => array && Array.isArray(array);
-export const isFunction = (func) => typeOf(func, "function");
-export const isObject = (obj) => typeOf(obj, "object") && !isArray(obj);
+export const isFunction = (func) => typeOf(func, 'function');
+export const isObject = (obj) => typeOf(obj, 'object') && !isArray(obj);
 // Exclude NaN
-export const isNumber = (num) => typeOf(num, "number");
+export const isNumber = (num) => typeOf(num, 'number');
 
 export function isUndefined(o) {
-  return typeof o === "undefined";
+  return typeof o === 'undefined';
 }
 
 // Include NaN
@@ -42,15 +42,15 @@ export function isUndefined(o) {
 // }
 
 export function isInteger(o) {
-  return typeof o === "number" && o % 1 === 0;
+  return typeof o === 'number' && o % 1 === 0;
 }
 
 export function isString(o) {
-  return typeof o === "string";
+  return typeof o === 'string';
 }
 
 export function isDate(o) {
-  return Object.prototype.toString.call(o) === "[object Date]";
+  return Object.prototype.toString.call(o) === '[object Date]';
 }
 
 export function integerBetween(thing, bottom, top) {
@@ -67,9 +67,8 @@ export const objLength = (ob) => (isObject(ob) ? Object.keys(ob).length : 0);
    ----------------------------------------*/
 export const findLast = (array, condition) => {
   if (isArray(array) && isFunction(condition)) {
-    let last = array.length - 1;
-    for (let index = last; index >= 0; index--)
-      if (condition(array[index])) return array[index];
+    const last = array.length - 1;
+    for (let index = last; index >= 0; index--) if (condition(array[index])) return array[index];
   }
   return null;
 };

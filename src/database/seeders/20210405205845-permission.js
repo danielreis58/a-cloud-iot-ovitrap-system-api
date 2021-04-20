@@ -1,41 +1,39 @@
-"use strict";
-
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert(
-      "permissions",
+      'permissions',
       [
         {
-          name: "Rota 1",
+          name: 'Rota 1',
           created_at: new Date(),
           updated_at: new Date(),
         },
         {
-          name: "Rota 2",
+          name: 'Rota 2',
           created_at: new Date(),
           updated_at: new Date(),
         },
         {
-          name: "Rota 3",
+          name: 'Rota 3',
           created_at: new Date(),
           updated_at: new Date(),
         },
         {
-          name: "Rota 4",
+          name: 'Rota 4',
           created_at: new Date(),
           updated_at: new Date(),
         },
         {
-          name: "Rota 5",
+          name: 'Rota 5',
           created_at: new Date(),
           updated_at: new Date(),
         },
       ],
-      {}
+      {},
     );
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete("permissions", null, {});
+    await queryInterface.bulkDelete('permissions', null, {});
   },
 };

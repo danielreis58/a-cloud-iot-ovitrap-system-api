@@ -1,7 +1,6 @@
-"use strict";
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable("ovitrap_catches", {
+    await queryInterface.createTable('ovitrap_catches', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -14,9 +13,9 @@ module.exports = {
       ovitrap_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: "ovitraps", key: "id" },
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE",
+        references: { model: 'ovitraps', key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       created_at: {
         allowNull: false,
@@ -29,6 +28,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable("ovitrap_catches");
+    await queryInterface.dropTable('ovitrap_catches');
   },
 };
