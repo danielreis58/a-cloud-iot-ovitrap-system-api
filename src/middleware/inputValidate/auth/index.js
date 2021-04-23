@@ -1,31 +1,35 @@
-import schemaPost from './schema/post.js';
+import schemaPost from './schema/post.js'
 
-import { utils } from '../../../utils/response.js';
+import { errorResponse } from '../../../utils/response.js'
 
 const inputValidate = (req, res, next) => {
-  const input = { ...req.body, ...req.params, ...req.query };
+  const input = { ...req.body, ...req.params, ...req.query }
   const options = {
-    abortEarly: false,
-  };
+    abortEarly: false
+  }
 
-  let schema = null;
+  let schema = null
   switch (req.method.toLowerCase()) {
     case 'post':
-      schema = schemaPost;
-      break;
+      if (req.originalUrl === '/login') {
+        schema = schemaPost
+      }
+      break
     default:
-      break;
+      break
   }
 
-  const { error } = schema.validate(input, options);
+  const { error } = schema.validate(input, options)
 
   if (error) {
-    const message = error.details.map((detail) => detail.message.replace(/(")|(")/g, ''));
+    const message = error.details.map((detail) =>
+      detail.message.replace(/(")|(")/g, '')
+    )
 
-    return utils.errorResponse(res, { message, code: 400 });
+    return errorResponse(res, { message, code: 400 })
   }
 
-  next();
-};
+  return next()
+}
 
-export default inputValidate;
+export default inputValidate

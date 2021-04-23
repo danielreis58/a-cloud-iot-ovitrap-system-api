@@ -5,55 +5,55 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER
       },
       name: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING
       },
       email: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING
       },
       document: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING
       },
       site: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING
       },
       cep: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING
       },
       address: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING
       },
       number: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER
       },
       neighborhood: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING
       },
       city: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING
       },
       state: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING
       },
       telephone: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING
       },
       note: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING
       },
       created_at: {
         allowNull: false,
-        type: Sequelize.DATE,
+        type: Sequelize.DATE
       },
       updated_at: {
         allowNull: false,
-        type: Sequelize.DATE,
-      },
-    });
+        type: Sequelize.DATE
+      }
+    })
   },
-  down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('companies');
-  },
-};
+  down: async (queryInterface) => {
+    await queryInterface.dropTable('companies')
+  }
+}

@@ -1,5 +1,5 @@
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
+  up: async (queryInterface) => {
     await queryInterface.bulkInsert(
       'ovitraps',
       [
@@ -10,7 +10,7 @@ module.exports = {
           user_id: '1',
           company_id: '1',
           created_at: new Date(),
-          updated_at: new Date(),
+          updated_at: new Date()
         },
         {
           name: 'Armadilha X 2',
@@ -19,7 +19,7 @@ module.exports = {
           user_id: '3',
           company_id: '1',
           created_at: new Date(),
-          updated_at: new Date(),
+          updated_at: new Date()
         },
         {
           name: 'Armadilha Y 1',
@@ -28,14 +28,14 @@ module.exports = {
           user_id: '1',
           company_id: '2',
           created_at: new Date(),
-          updated_at: new Date(),
-        },
+          updated_at: new Date()
+        }
       ],
-      {},
-    );
+      {}
+    )
   },
 
-  down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete('ovitraps', null, {});
-  },
-};
+  down: async (queryInterface) => {
+    await queryInterface.bulkDelete('ovitraps', null, {})
+  }
+}

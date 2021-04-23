@@ -1,24 +1,22 @@
-import pkg from 'sequelize';
+import pkg from 'sequelize'
 
-const { Model, DataTypes } = pkg;
+const { Model, DataTypes } = pkg
 
 class ProfilePermission extends Model {
-    static init(sequelize) {
-        super.init(
-            {
-                profile_id: DataTypes.INTEGER,
-                permission_id: DataTypes.INTEGER,
-            },
-            {
-                sequelize,
-                modelName: 'ProfilePermission',
-            },
-        );
-    }
+  static init(sequelize) {
+    super.init(
+      {
+        profile_id: DataTypes.INTEGER,
+        permission_id: DataTypes.INTEGER
+      },
+      {
+        sequelize,
+        modelName: 'ProfilePermission'
+      }
+    )
+  }
 
-    static associate(models) {
-
-    }
+  static associate() {}
 }
 
-export default ProfilePermission;
+export default ProfilePermission

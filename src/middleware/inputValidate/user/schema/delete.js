@@ -1,7 +1,7 @@
-import Joi from 'joi';
+import Joi from 'joi'
 
 const validate = Joi.object({
-  id: Joi.string().uuid().required(),
-});
+  id: Joi.number().integer().required()
+})
 
-export default validate;
+export default validate

@@ -1,9 +1,9 @@
-import Joi from 'joi';
+import Joi from 'joi'
 
 const validate = Joi.object({
   page: Joi.number().integer().min(1),
 
-  limit: Joi.number().integer().min(1).max(50),
-});
+  limit: Joi.number().integer().min(1).max(50)
+})
 
-export default validate;
+export default validate

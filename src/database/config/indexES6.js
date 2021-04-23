@@ -1,6 +1,4 @@
-const {
-  DB_USER, DB_PASS, DB_NAME, DB_HOST,
-} = process.env;
+const { DB_USER, DB_PASS, DB_NAME, DB_HOST } = process.env
 
 export default {
   username: DB_USER,
@@ -10,6 +8,6 @@ export default {
   dialect: 'postgres',
   define: {
     timestamps: true,
-    underscored: true,
-  },
-};
+    underscored: true
+  }
+}

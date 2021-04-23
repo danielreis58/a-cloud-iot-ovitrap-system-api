@@ -1,30 +1,30 @@
 export const responseClient = (res, data, status = 200) => {
-  res.status(status);
+  res.status(status)
   res.json({
     status,
-    body: data,
-  });
-};
+    body: data
+  })
+}
 
 export const errorResponse = (res, error) => {
-  let code = 500;
+  let code = 500
 
   // FOR DEBUGGING
-  console.log('ERROR ========================>', error);
+  console.log('ERROR ========================>', error)
 
   if (Number.isInteger(error?.code)) {
-    code = error.code;
-    delete error.code;
+    code = error.code
   }
 
-  const message = code !== 500
-    ? error?.message || 'Internal server error'
-    : 'Internal server error';
+  const message =
+    code !== 500
+      ? error?.message || 'Internal server error'
+      : 'Internal server error'
 
   const data = {
     error: true,
-    message,
-  };
+    message
+  }
 
-  responseClient(res, data, code);
-};
+  responseClient(res, data, code)
+}

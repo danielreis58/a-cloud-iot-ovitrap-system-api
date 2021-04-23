@@ -1,11 +1,11 @@
-import Joi from 'joi';
+import Joi from 'joi'
 
 const validate = Joi.object({
-  id: Joi.string().uuid().required(),
+  id: Joi.number().integer().required(),
 
   email: Joi.string().email().required(),
 
-  password: Joi.string().min(4).required(),
-});
+  password: Joi.string().min(4).required()
+})
 
-export default validate;
+export default validate

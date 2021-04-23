@@ -1,11 +1,11 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt')
 
-const pswAdmin = bcrypt.hashSync('admin123', 8);
-const pswSupv = bcrypt.hashSync('supv123', 8);
-const pswAgnt = bcrypt.hashSync('agent123', 8);
+const pswAdmin = bcrypt.hashSync('admin123', 8)
+const pswSupv = bcrypt.hashSync('supv123', 8)
+const pswAgnt = bcrypt.hashSync('agent123', 8)
 
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
+  up: async (queryInterface) => {
     await queryInterface.bulkInsert(
       'users',
       [
@@ -17,7 +17,7 @@ module.exports = {
           profile_id: 1,
           company_id: 1,
           created_at: new Date(),
-          updated_at: new Date(),
+          updated_at: new Date()
         },
         {
           name: 'Supervisor X',
@@ -27,7 +27,7 @@ module.exports = {
           profile_id: 2,
           company_id: 1,
           created_at: new Date(),
-          updated_at: new Date(),
+          updated_at: new Date()
         },
         {
           name: 'Agente X',
@@ -37,7 +37,7 @@ module.exports = {
           profile_id: 3,
           company_id: 1,
           created_at: new Date(),
-          updated_at: new Date(),
+          updated_at: new Date()
         },
         {
           name: 'Administrador Y',
@@ -47,7 +47,7 @@ module.exports = {
           profile_id: 1,
           company_id: 2,
           created_at: new Date(),
-          updated_at: new Date(),
+          updated_at: new Date()
         },
         {
           name: 'Supervisor Y',
@@ -57,7 +57,7 @@ module.exports = {
           profile_id: 2,
           company_id: 2,
           created_at: new Date(),
-          updated_at: new Date(),
+          updated_at: new Date()
         },
         {
           name: 'Agente Y',
@@ -67,14 +67,14 @@ module.exports = {
           profile_id: 3,
           company_id: 2,
           created_at: new Date(),
-          updated_at: new Date(),
-        },
+          updated_at: new Date()
+        }
       ],
-      {},
-    );
+      {}
+    )
   },
 
-  down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete('users', null, {});
-  },
-};
+  down: async (queryInterface) => {
+    await queryInterface.bulkDelete('users', null, {})
+  }
+}

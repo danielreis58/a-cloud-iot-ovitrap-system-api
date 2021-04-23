@@ -1,5 +1,5 @@
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
+  up: async (queryInterface) => {
     await queryInterface.bulkInsert(
       'companies',
       [
@@ -17,7 +17,7 @@ module.exports = {
           telephone: '(11) 2937-7315',
           note: 'dinossauro',
           created_at: new Date(),
-          updated_at: new Date(),
+          updated_at: new Date()
         },
         {
           name: 'Empresa Y',
@@ -33,14 +33,14 @@ module.exports = {
           telephone: '(11) 99779-6785',
           note: '',
           created_at: new Date(),
-          updated_at: new Date(),
-        },
+          updated_at: new Date()
+        }
       ],
-      {},
-    );
+      {}
+    )
   },
 
-  down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete('companies', null, {});
-  },
-};
+  down: async (queryInterface) => {
+    await queryInterface.bulkDelete('companies', null, {})
+  }
+}

@@ -1,14 +1,18 @@
-import express from 'express';
-import userController from '../controllers/user.js';
-import authenticateToken from '../middleware/auth/index.js';
-import inputValidate from '../middleware/inputValidate/user/index.js';
+import express from 'express'
+import userController from '../controllers/user.js'
+import authenticateToken from '../middleware/auth/index.js'
+import inputValidate from '../middleware/inputValidate/user/index.js'
 
-const routes = express.Router();
+const routes = express.Router()
 
-routes.get('/user', [authenticateToken, inputValidate], userController.index);
-routes.get('/user:id', [authenticateToken, inputValidate], userController.show);
-routes.post('/user', [authenticateToken, inputValidate], userController.create);
-routes.patch('/user', [authenticateToken, inputValidate], userController.update);
-routes.delete('/user', [authenticateToken, inputValidate], userController.delete);
+routes.get('/user', [authenticateToken, inputValidate], userController.index)
+routes.get('/user/:id', [authenticateToken, inputValidate], userController.show)
+routes.post('/user', [authenticateToken, inputValidate], userController.create)
+routes.patch('/user', [authenticateToken, inputValidate], userController.update)
+routes.delete(
+  '/user',
+  [authenticateToken, inputValidate],
+  userController.delete
+)
 
-export default routes;
+export default routes

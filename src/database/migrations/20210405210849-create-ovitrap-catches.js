@@ -5,29 +5,29 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER
       },
       number: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER
       },
       ovitrap_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: { model: 'ovitraps', key: 'id' },
         onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
+        onDelete: 'CASCADE'
       },
       created_at: {
         allowNull: false,
-        type: Sequelize.DATE,
+        type: Sequelize.DATE
       },
       updated_at: {
         allowNull: false,
-        type: Sequelize.DATE,
-      },
-    });
+        type: Sequelize.DATE
+      }
+    })
   },
-  down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('ovitrap_catches');
-  },
-};
+  down: async (queryInterface) => {
+    await queryInterface.dropTable('ovitrap_catches')
+  }
+}
