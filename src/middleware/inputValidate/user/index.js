@@ -1,7 +1,7 @@
 import schemaGet from './schema/get.js'
 import schemaShow from './schema/show.js'
 import schemaPost from './schema/post.js'
-import schemaPut from './schema/put.js'
+import schemaPatch from './schema/put.js'
 import schemaDel from './schema/delete.js'
 
 import { errorResponse } from '../../../utils/response.js'
@@ -22,8 +22,8 @@ const inputValidate = (req, res, next) => {
       schema = schemaPost
       break
 
-    case 'put':
-      schema = schemaPut
+    case 'patch':
+      schema = schemaPatch
       break
 
     default:

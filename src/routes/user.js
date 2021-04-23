@@ -8,9 +8,13 @@ const routes = express.Router()
 routes.get('/user', [authenticateToken, inputValidate], userController.index)
 routes.get('/user/:id', [authenticateToken, inputValidate], userController.show)
 routes.post('/user', [authenticateToken, inputValidate], userController.create)
-routes.patch('/user', [authenticateToken, inputValidate], userController.update)
+routes.patch(
+  '/user:id',
+  [authenticateToken, inputValidate],
+  userController.update
+)
 routes.delete(
-  '/user',
+  '/user/:id',
   [authenticateToken, inputValidate],
   userController.delete
 )

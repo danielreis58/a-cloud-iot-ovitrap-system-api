@@ -21,12 +21,12 @@ routes.post(
   ovitrapController.create
 )
 routes.patch(
-  '/ovitrap',
+  '/ovitrap/:id',
   [authenticateToken, inputValidate],
   ovitrapController.update
 )
 routes.delete(
-  '/ovitrap',
+  '/ovitrap/:id',
   [authenticateToken, inputValidate],
   ovitrapController.delete
 )

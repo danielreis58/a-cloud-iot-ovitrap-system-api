@@ -21,12 +21,12 @@ routes.post(
   companyController.create
 )
 routes.patch(
-  '/company',
+  '/company/:id',
   [authenticateToken, inputValidate],
   companyController.update
 )
 routes.delete(
-  '/company',
+  '/company/:id',
   [authenticateToken, inputValidate],
   companyController.delete
 )
