@@ -9,7 +9,7 @@ routes.get('/user', [authenticateToken, inputValidate], userController.index)
 routes.get('/user/:id', [authenticateToken, inputValidate], userController.show)
 routes.post('/user', [authenticateToken, inputValidate], userController.create)
 routes.patch(
-  '/user:id',
+  '/user/:id',
   [authenticateToken, inputValidate],
   userController.update
 )

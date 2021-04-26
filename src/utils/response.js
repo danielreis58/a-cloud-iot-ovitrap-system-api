@@ -10,7 +10,11 @@ export const errorResponse = (res, error) => {
   let code = 500
 
   // FOR DEBUGGING
-  console.log('ERROR ========================>', error)
+  console.log(
+    'ERROR ========================>',
+    error,
+    '<======================== ERROR'
+  )
 
   if (Number.isInteger(error?.code)) {
     code = error.code

@@ -14,3 +14,30 @@ export const encryptPassword = (password) => {
   const salts = SALTS || 8
   return bcrypt.hash(password, salts)
 }
+
+export const getFromToken = async (authorization, resourceArray) => {
+  try {
+    if (!authorization)
+      throw { code: 401, message: 'Authorization is required' }
+
+    const data = {}
+
+    let auth = authorization
+    auth = auth.split('Bearer ')
+    auth = auth[auth.length - 1]
+
+    jwt.verify(auth, SECRET, { ignoreExpiration: false }, (err, decoded) => {
+      if (err) throw { code: 401, message: 'Invalid Authorization' }
+      Object.entries(decoded).forEach((e) => {
+        const key = e[0]
+        const value = e[1]
+        if (resourceArray.includes(key)) {
+          data[key] = value
+        }
+      })
+    })
+    return data
+  } catch (error) {
+    return error
+  }
+}

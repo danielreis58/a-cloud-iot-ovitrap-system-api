@@ -2,6 +2,7 @@ import Joi from 'joi'
 
 const validate = Joi.object({
   id: Joi.number().integer().required(),
+
   name: Joi.string(),
   email: Joi.string().email(),
   document: Joi.string(),

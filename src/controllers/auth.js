@@ -29,9 +29,10 @@ export default {
           id: user.id,
           name: user.name,
           nickname: user.nickname,
-          email: user.email,
-          profile_id: user.profile_id
-        }
+          email: user.email
+        },
+        profile: user.profile_id,
+        company: user.company_id
       })
 
       responseClient(res, {
