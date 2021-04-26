@@ -118,6 +118,7 @@ export default {
         },
         returning: true
       })
+
       if (!isRegistered) {
         throw { code: 400, message: `${show} not founded` }
       }

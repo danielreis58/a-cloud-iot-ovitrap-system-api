@@ -1,9 +1,8 @@
 import Joi from 'joi'
 
 const validate = Joi.object({
-  email: Joi.string().email().required(),
-
-  password: Joi.string().min(4).required()
+  name: Joi.string().min(4).required(),
+  user_id: Joi.number().integer().required()
 })
 
 export default validate
