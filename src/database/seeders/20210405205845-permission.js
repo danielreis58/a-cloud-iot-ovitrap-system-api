@@ -4,27 +4,17 @@ module.exports = {
       'permissions',
       [
         {
-          name: 'Rota 1',
+          name: 'Company',
           created_at: new Date(),
           updated_at: new Date()
         },
         {
-          name: 'Rota 2',
+          name: 'User',
           created_at: new Date(),
           updated_at: new Date()
         },
         {
-          name: 'Rota 3',
-          created_at: new Date(),
-          updated_at: new Date()
-        },
-        {
-          name: 'Rota 4',
-          created_at: new Date(),
-          updated_at: new Date()
-        },
-        {
-          name: 'Rota 5',
+          name: 'Ovitrap',
           created_at: new Date(),
           updated_at: new Date()
         }

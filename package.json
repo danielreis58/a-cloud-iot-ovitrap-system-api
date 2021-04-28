@@ -31,10 +31,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon -r dotenv/config src/server.js",
-    "start": "nodemon -r dotenv/config src/server.js",
-    "migrate": "sequelize db:migrate",
-    "seed": "sequelize db:seed:all",
-    "unseed": "sequelize db:seed:undo"
+    "start": "nodemon -r dotenv/config src/server.js"
   },
   "author": "",
   "license": "ISC"
