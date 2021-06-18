@@ -51,9 +51,9 @@ export default {
   async logout(req, res) {
     try {
       const { authorization } = req.headers
-      if (!authorization) {
-        throw { code: 401, message: 'Authorization is required' }
-      }
+      // if (!authorization) {
+      //   throw { code: 401, message: 'Authorization is required' }
+      // }
 
       await Blacklist.create({ token: authorization })
 
