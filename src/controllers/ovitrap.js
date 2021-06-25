@@ -17,9 +17,7 @@ export default {
       responseClient(res, {
         error: false,
         message: `${index} founded`,
-        data: {
-          [index]: data
-        }
+        data
       })
     } catch (error) {
       errorResponse(res, error)
@@ -42,9 +40,7 @@ export default {
       responseClient(res, {
         error: false,
         message: `${show} founded`,
-        data: {
-          [show]: data
-        }
+        data
       })
     } catch (error) {
       errorResponse(res, error)
