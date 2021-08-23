@@ -135,7 +135,7 @@ export default {
     try {
       const data = await Ovitrap.destroy({
         where: {
-          id: req.params.id
+          id: req.params.id.split(',').map(Number)
         }
       })
 
