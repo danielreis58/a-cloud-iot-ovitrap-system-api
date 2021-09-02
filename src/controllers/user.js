@@ -1,3 +1,4 @@
+import pkg from 'sequelize'
 import { responseClient, errorResponse } from '../utils/response.js'
 import { getFromToken } from '../utils/auth.js'
 import User from '../models/user.js'
@@ -6,11 +7,15 @@ import Profile from '../models/profile.js'
 const show = 'user'
 const index = 'users'
 
+const { Op } = pkg
+
 export default {
   async index(req, res) {
     try {
       const data = await User.findAll({
-        attributes: { exclude: ['createdAt', 'updatedAt'] },
+        attributes: {
+          exclude: ['createdAt', 'updatedAt', 'company_id', 'password']
+        },
         order: [['name', 'ASC']]
       })
 
@@ -30,7 +35,9 @@ export default {
         where: {
           id: req.params.id
         },
-        attributes: { exclude: ['createdAt', 'updatedAt'] }
+        attributes: {
+          exclude: ['createdAt', 'updatedAt', 'company_id', 'password']
+        }
       })
 
       if (!data) {
@@ -99,7 +106,8 @@ export default {
       if (req.body.email) {
         const isRegisteredEmail = await User.findOne({
           where: {
-            email: req.body.email
+            email: { [Op.eq]: req.body.email },
+            id: { [Op.ne]: req.params.id }
           }
         })
 
