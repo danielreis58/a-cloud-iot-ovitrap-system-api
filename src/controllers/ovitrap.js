@@ -10,7 +10,7 @@ export default {
   async index(req, res) {
     try {
       const data = await Ovitrap.findAll({
-        attributes: { exclude: ['createdAt', 'updatedAt'] },
+        attributes: { exclude: ['createdAt', 'updatedAt', 'company_id'] },
         order: [['name', 'ASC']]
       })
 
@@ -30,7 +30,7 @@ export default {
         where: {
           id: req.params.id
         },
-        attributes: { exclude: ['createdAt', 'updatedAt'] }
+        attributes: { exclude: ['createdAt', 'updatedAt', 'company_id'] }
       })
 
       if (!data) {
