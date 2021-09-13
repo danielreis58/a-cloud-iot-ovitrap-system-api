@@ -17,22 +17,36 @@ export default {
 
       const query = {
         text: `
+        WITH catches AS (
           SELECT
-            oc.id,
-            oc.number,	
+            ovitrap_id,
+            ARRAY(
+            SELECT
+              json_build_object('number', o2.number, 'created_at', extract(epoch FROM o2.created_at) * 1000)
+            FROM
+              ovitrap_catches o2
+            WHERE
+              o2.ovitrap_id = ct.ovitrap_id
+            ORDER BY created_at) AS DATA
+          FROM
+            ovitrap_catches ct
+          GROUP BY
+            ovitrap_id)
+          SELECT
+            o.id,
+            o.name AS ovitrap_name,
+            ct.data,	
             o.latitude,
             o.longtude,
-            oc.ovitrap_id,
-            o.name AS ovitrap_name,	
             o.user_id,
             u.name AS user_name,
             o.company_id,
-            c.name AS company_name,
-            oc.created_at
+            c.name AS company_name,	
+            o.created_at
           FROM
-            ovitrap_catches oc
-          INNER JOIN ovitraps o ON
-            o.id = oc.ovitrap_id
+            ovitraps o
+          LEFT JOIN catches ct ON
+            ct.ovitrap_id = o.id
           INNER JOIN users u ON
             u.id = o.user_id
           INNER JOIN companies c ON
