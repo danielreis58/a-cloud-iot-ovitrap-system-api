@@ -9,6 +9,8 @@ export default {
     const pgConn = await pgConnect()
 
     try {
+      const lastDays = 30
+
       const { user, profile, company } = await getFromToken(
         req.headers.authorization,
         ['user', 'profile', 'company']
@@ -17,40 +19,36 @@ export default {
 
       const query = {
         text: `
-        WITH catches AS (
+        WITH catches_by_day AS (
           SELECT
             ovitrap_id,
-            ARRAY(
-            SELECT
-              json_build_object('number', o2.number, 'created_at', extract(epoch FROM o2.created_at) * 1000)
-            FROM
-              ovitrap_catches o2
-            WHERE
-              o2.ovitrap_id = ct.ovitrap_id
-            ORDER BY created_at) AS DATA
+            created_at::date AS created_at,
+            sum("number") AS "number"
           FROM
-            ovitrap_catches ct
+            ovitrap_catches
           GROUP BY
-            ovitrap_id)
+            1,
+            2
+          ORDER BY
+            ovitrap_id
+          )
           SELECT
             o.id,
-            o.name AS ovitrap_name,
-            ct.data,	
-            o.latitude,
-            o.longtude,
-            o.user_id,
-            u.name AS user_name,
-            o.company_id,
-            c.name AS company_name,	
-            o.created_at
+            o.name,
+            ARRAY(
+            SELECT
+              json_build_object(
+                'date', d::date, 
+                'total', COALESCE(cbd.number, 0)
+              )
+            FROM
+              generate_series((now()::date - ${lastDays})::date, now()::date, '1 day'::INTERVAL) AS d
+            LEFT JOIN catches_by_day cbd ON
+              cbd.created_at::date = d::date
+              AND cbd.ovitrap_id = o.id
+            ) AS DATA
           FROM
             ovitraps o
-          LEFT JOIN catches ct ON
-            ct.ovitrap_id = o.id
-          INNER JOIN users u ON
-            u.id = o.user_id
-          INNER JOIN companies c ON
-            c.id = o.company_id
         `,
         values: []
       }
