@@ -1,15 +1,19 @@
 import pg from 'pg'
 import dbConfig from '../config/indexES6.js'
 
+const env = process.env.NODE_ENV || 'local'
+
 const { Client } = pg
+
+const { host, username: user, password, database, port } = dbConfig[env]
 
 export const pgConnect = async () => {
   const config = {
-    host: dbConfig.host,
-    user: dbConfig.username,
-    password: dbConfig.password,
-    database: dbConfig.database,
-    port: dbConfig.port
+    host,
+    user,
+    password,
+    database,
+    port
   }
   const client = new Client(config)
   await client.connect()

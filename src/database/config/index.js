@@ -1,16 +1,39 @@
 require('dotenv').config()
 
-const { DB_USER, DB_PASS, DB_NAME, DB_HOST, DB_PORT } = process.env
+const {
+  LOCAL_DB_USER,
+  LOCAL_DB_PASS,
+  LOCAL_DB_NAME,
+  LOCAL_DB_PORT,
+  PROD_DB_USER,
+  PROD_DB_PASS,
+  PROD_DB_NAME,
+  PROD_DB_PORT
+} = process.env
 
-module.exports = {
-  username: DB_USER,
-  password: DB_PASS,
-  database: DB_NAME,
-  host: DB_HOST,
-  port: DB_PORT,
-  dialect: 'postgres',
-  define: {
-    timestamps: true,
-    underscored: true
+module.exports = Object.freeze({
+  local: {
+    username: LOCAL_DB_USER,
+    password: LOCAL_DB_PASS,
+    database: LOCAL_DB_NAME,
+    host: 'localhost',
+    port: LOCAL_DB_PORT,
+    dialect: 'postgres',
+    define: {
+      timestamps: true,
+      underscored: true
+    }
+  },
+  prod: {
+    username: PROD_DB_USER,
+    password: PROD_DB_PASS,
+    database: PROD_DB_NAME,
+    host: 'localhost',
+    port: PROD_DB_PORT,
+    dialect: 'postgres',
+    define: {
+      timestamps: true,
+      underscored: true
+    }
   }
-}
+})

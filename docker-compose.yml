@@ -6,39 +6,26 @@ services:
     container_name: db_ovitrap
     restart: always
     ports:
-      - ${DB_PORT}:5432
+      - ${LOCAL_DB_PORT}:5432
     environment:
-      POSTGRES_DB: ${DB_NAME}
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASS}
-#   api:
-#     image: node:latest
-#     container_name: api
-#     restart: always
-#     env_file:
-#       - .env
-#     depends_on:
-#       - db_ovitrap
-#     ports:
-#       - ${SERVER_PORT}:${SERVER_PORT}
-#     volumes:
-#       - .:/projects/ovitrapapi
-#     working_dir: /projects/ovitrapapi
-#     command: npm run dev
-
-#   db-admin:
-#     image: dpage/pgadmin4
-#     container_name: db_admin
-#     environment:
-#       PGADMIN_DEFAULT_EMAIL: "admin@admin"
-#       PGADMIN_DEFAULT_PASSWORD: "admin1234"
-#     ports:
-#       - "16543:80"
-#     depends_on:
-#       - db_ovitrap
-#     networks:
-#       - postgres-compose-network
-
-# networks:
-#   postgres-compose-network:
-#     driver: bridge
+      POSTGRES_DB: ${LOCAL_DB_NAME}
+      POSTGRES_USER: ${LOCAL_DB_USER}
+      POSTGRES_PASSWORD: ${LOCAL_DB_PASS}
+  api:
+    build: .    
+    container_name: api_ovitrap
+    restart: always
+    depends_on: 
+      - db
+    env_file:
+      - .env
+    depends_on:
+      - db
+    ports:
+      - ${LOCAL_API_PORT}:${LOCAL_API_PORT}
+    command: npm run dev
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"

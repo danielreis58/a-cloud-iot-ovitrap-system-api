@@ -10,7 +10,9 @@ import ProfilePermission from '../models/profile-permission.js'
 import Profile from '../models/profile.js'
 import User from '../models/user.js'
 
-const connection = new Sequelize(dbConfig)
+const env = process.env.NODE_ENV || 'local'
+
+const connection = new Sequelize(dbConfig[env])
 
 Blacklist.init(connection)
 Company.init(connection)

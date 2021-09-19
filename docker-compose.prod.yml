@@ -1,0 +1,26 @@
+version: "3.1"
+
+services:
+  db:
+    ports:
+      - ${PROD_DB_PORT}:5432
+    environment:
+      POSTGRES_DB: ${PROD_DB_NAME}
+      POSTGRES_USER: ${PROD_DB_USER}
+      POSTGRES_PASSWORD: ${PROD_DB_PASS}
+  api:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.frontend.rule=Host:api-smartovitraps.com"
+    ports:
+      - ${PROD_API_PORT}:${PROD_API_PORT}
+    command: npm run start
+
+  reverse-proxy:
+    image: traefik
+    command: --api --docker.exposedbydefault=false
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock

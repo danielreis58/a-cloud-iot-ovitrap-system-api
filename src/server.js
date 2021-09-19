@@ -3,6 +3,9 @@ import cors from 'cors'
 import express from 'express'
 import routes from './routes/index.js'
 
+const env = process.env.NODE_ENV || 'local'
+const nodeEnvUpper = env.toUpperCase()
+
 const app = express()
 
 app.use(express.json())
@@ -20,4 +23,14 @@ app.use((err, req, res, next) => {
 
 app.use(routes)
 
-app.listen(process.env.SERVER_PORT, process.env.SERVER_HOST)
+app.listen(
+  process.env[`${nodeEnvUpper}_API_PORT`],
+  process.env[`${nodeEnvUpper}_API_HOST`],
+  () =>
+    console.log(
+      '... port %d in %s mode %s',
+      process.env[`${nodeEnvUpper}_API_PORT`],
+      process.env[`${nodeEnvUpper}_API_HOST`],
+      nodeEnvUpper
+    )
+)

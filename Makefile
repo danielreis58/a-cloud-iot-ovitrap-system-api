@@ -1,5 +1,7 @@
 include .env
 
+ENV:=LOCAL
+
 .PHONY: up
 up:
 	docker-compose up -d
