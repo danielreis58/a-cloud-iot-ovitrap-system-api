@@ -35,6 +35,7 @@ export default {
           SELECT
             o.id,
             o.name,
+            COALESCE((SELECT sum("number") FROM catches_by_day cbd WHERE cbd.ovitrap_id = o.id), 0)::INTEGER AS total,
             ARRAY(
             SELECT
               json_build_object(
