@@ -4,6 +4,7 @@ const {
   LOCAL_DB_USER,
   LOCAL_DB_PASS,
   LOCAL_DB_NAME,
+  LOCAL_DB_HOST,
   LOCAL_DB_PORT,
   PROD_DB_USER,
   PROD_DB_PASS,
@@ -16,8 +17,8 @@ module.exports = Object.freeze({
     username: LOCAL_DB_USER,
     password: LOCAL_DB_PASS,
     database: LOCAL_DB_NAME,
-    host: 'localhost',
-    port: LOCAL_DB_PORT,
+    host: LOCAL_DB_HOST,
+    port: 5432,
     dialect: 'postgres',
     define: {
       timestamps: true,
