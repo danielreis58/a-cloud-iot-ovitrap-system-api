@@ -27,7 +27,7 @@ export default {
     password: PROD_DB_PASS,
     database: PROD_DB_NAME,
     host: PROD_DB_HOST,
-    port: 5433,
+    port: 5432,
     dialect: 'postgres',
     define: {
       timestamps: true,
