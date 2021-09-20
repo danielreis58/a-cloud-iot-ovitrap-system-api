@@ -3,12 +3,10 @@ const {
   LOCAL_DB_PASS,
   LOCAL_DB_NAME,
   LOCAL_DB_HOST,
-  LOCAL_DB_PORT,
   PROD_DB_USER,
   PROD_DB_PASS,
   PROD_DB_NAME,
-  PROD_DB_HOST,
-  PROD_DB_PORT
+  PROD_DB_HOST
 } = process.env
 
 export default {
