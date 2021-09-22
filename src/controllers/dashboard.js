@@ -37,7 +37,7 @@ export default {
             o.name,
             json_build_object(
               'lat', o.latitude, 
-              'lng', o.longtude
+              'lng', o.longitude
             ) AS coordinates,
             COALESCE((SELECT sum("number") FROM catches_by_day cbd WHERE cbd.ovitrap_id = o.id), 0)::INTEGER AS total,
             ARRAY(

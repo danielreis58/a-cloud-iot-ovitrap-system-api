@@ -3,9 +3,8 @@ module.exports = {
     await queryInterface.createTable('ovitraps', {
       id: {
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        defaultValue: Sequelize.literal(`uuid_generate_v4()`)
       },
       name: {
         type: Sequelize.STRING
@@ -13,7 +12,7 @@ module.exports = {
       latitude: {
         type: Sequelize.FLOAT
       },
-      longtude: {
+      longitude: {
         type: Sequelize.FLOAT
       },
       user_id: {

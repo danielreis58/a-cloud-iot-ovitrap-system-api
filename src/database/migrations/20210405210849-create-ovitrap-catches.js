@@ -3,9 +3,8 @@ module.exports = {
     await queryInterface.createTable('ovitrap_catches', {
       id: {
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        defaultValue: Sequelize.literal(`uuid_generate_v4()`)
       },
       number: {
         type: Sequelize.INTEGER

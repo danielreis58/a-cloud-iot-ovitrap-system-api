@@ -3,9 +3,8 @@ module.exports = {
     await queryInterface.createTable('profile_permissions', {
       id: {
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        defaultValue: Sequelize.literal(`uuid_generate_v4()`)
       },
       profile_id: {
         type: Sequelize.INTEGER,
