@@ -1,22 +1,25 @@
+const {
+  permissionCompany,
+  permissionUser,
+  permissionOvitrap
+} = require('../uuid_seeders')
+
 module.exports = {
   up: async (queryInterface) => {
     await queryInterface.bulkInsert(
       'permissions',
       [
         {
-          name: 'Company',
-          created_at: new Date(),
-          updated_at: new Date()
+          id: permissionCompany,
+          name: 'Company'
         },
         {
-          name: 'User',
-          created_at: new Date(),
-          updated_at: new Date()
+          id: permissionUser,
+          name: 'User'
         },
         {
-          name: 'Ovitrap',
-          created_at: new Date(),
-          updated_at: new Date()
+          id: permissionOvitrap,
+          name: 'Ovitrap'
         }
       ],
       {}

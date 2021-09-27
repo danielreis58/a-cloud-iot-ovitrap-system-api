@@ -1,5 +1,4 @@
-const today = new Date()
-const startDate = new Date().setDate(today.getDate() - 30)
+const { ovitrap1X, ovitrap2X, ovitrap1Y } = require('../uuid_seeders')
 
 module.exports = {
   up: async (queryInterface) => {
@@ -8,81 +7,87 @@ module.exports = {
       [
         {
           number: 1,
-          ovitrap_id: 1,
-          created_at: new Date().setDate(startDate.getDate() + 1),
-          updated_at: new Date().setDate(startDate.getDate() + 1)
+          ovitrap_id: ovitrap1X,
+          created_at: new Date(new Date().setDate(new Date().getDate() - 30)),
+          updated_at: new Date(new Date().setDate(new Date().getDate() - 30))
         },
         {
           number: 2,
-          ovitrap_id: 1,
-          created_at: new Date().setDate(startDate.getDate() + 2),
-          updated_at: new Date().setDate(startDate.getDate() + 2)
+          ovitrap_id: ovitrap1X,
+          created_at: new Date(new Date().setDate(new Date().getDate() - 29)),
+          updated_at: new Date(new Date().setDate(new Date().getDate() - 29))
         },
         {
           number: 3,
-          ovitrap_id: 1,
-          created_at: new Date().setDate(startDate.getDate() + 3),
-          updated_at: new Date().setDate(startDate.getDate() + 3)
+          ovitrap_id: ovitrap1X,
+          created_at: new Date(new Date().setDate(new Date().getDate() - 28)),
+          updated_at: new Date(new Date().setDate(new Date().getDate() - 28))
         },
         {
           number: 1,
-          ovitrap_id: 1,
-          created_at: new Date().setDate(startDate.getDate() + 4),
-          updated_at: new Date().setDate(startDate.getDate() + 4)
+          ovitrap_id: ovitrap1X,
+          created_at: new Date(new Date().setDate(new Date().getDate() - 27)),
+          updated_at: new Date(new Date().setDate(new Date().getDate() - 27))
         },
         {
           number: 0,
-          ovitrap_id: 1,
-          created_at: new Date().setDate(startDate.getDate() + 5),
-          updated_at: new Date().setDate(startDate.getDate() + 5)
+          ovitrap_id: ovitrap1X,
+          created_at: new Date(new Date().setDate(new Date().getDate() - 26)),
+          updated_at: new Date(new Date().setDate(new Date().getDate() - 26))
         },
         {
           number: 4,
-          ovitrap_id: 1,
-          created_at: new Date().setDate(startDate.getDate() + 6),
-          updated_at: new Date().setDate(startDate.getDate() + 6)
+          ovitrap_id: ovitrap1X,
+          created_at: new Date(new Date().setDate(new Date().getDate() - 25)),
+          updated_at: new Date(new Date().setDate(new Date().getDate() - 25))
         },
         {
           number: 2,
-          ovitrap_id: 1,
-          created_at: new Date().setDate(startDate.getDate() + 7),
-          updated_at: new Date().setDate(startDate.getDate() + 7)
+          ovitrap_id: ovitrap1X,
+          created_at: new Date(new Date().setDate(new Date().getDate() - 24)),
+          updated_at: new Date(new Date().setDate(new Date().getDate() - 24))
         },
         {
           number: 6,
-          ovitrap_id: 1,
-          created_at: new Date().setDate(startDate.getDate() + 8),
-          updated_at: new Date().setDate(startDate.getDate() + 8)
+          ovitrap_id: ovitrap1X,
+          created_at: new Date(new Date().setDate(new Date().getDate() - 23)),
+          updated_at: new Date(new Date().setDate(new Date().getDate() - 23))
         },
         {
           number: 0,
-          ovitrap_id: 1,
-          created_at: new Date().setDate(startDate.getDate() + 9),
-          updated_at: new Date().setDate(startDate.getDate() + 9)
+          ovitrap_id: ovitrap1X,
+          created_at: new Date(new Date().setDate(new Date().getDate() - 22)),
+          updated_at: new Date(new Date().setDate(new Date().getDate() - 22))
         },
         {
           number: 1,
-          ovitrap_id: 2,
-          created_at: new Date().setDate(startDate.getDate() + 1),
-          updated_at: new Date().setDate(startDate.getDate() + 1)
+          ovitrap_id: ovitrap2X,
+          created_at: new Date(new Date().setDate(new Date().getDate() - 30)),
+          updated_at: new Date(new Date().setDate(new Date().getDate() - 30))
         },
         {
           number: 5,
-          ovitrap_id: 2,
-          created_at: new Date().setDate(startDate.getDate() + 2),
-          updated_at: new Date().setDate(startDate.getDate() + 2)
+          ovitrap_id: ovitrap2X,
+          created_at: new Date(new Date().setDate(new Date().getDate() - 29)),
+          updated_at: new Date(new Date().setDate(new Date().getDate() - 29))
         },
         {
           number: 0,
-          ovitrap_id: 2,
-          created_at: new Date().setDate(startDate.getDate() + 12),
-          updated_at: new Date().setDate(startDate.getDate() + 12)
+          ovitrap_id: ovitrap2X,
+          created_at: new Date(new Date().setDate(new Date().getDate() - 28)),
+          updated_at: new Date(new Date().setDate(new Date().getDate() - 28))
         },
         {
           number: 3,
-          ovitrap_id: 2,
-          created_at: new Date().setDate(startDate.getDate() + 13),
-          updated_at: new Date().setDate(startDate.getDate() + 13)
+          ovitrap_id: ovitrap2X,
+          created_at: new Date(new Date().setDate(new Date().getDate() - 27)),
+          updated_at: new Date(new Date().setDate(new Date().getDate() - 27))
+        },
+        {
+          number: 3,
+          ovitrap_id: ovitrap1Y,
+          created_at: new Date(new Date().setDate(new Date().getDate() - 10)),
+          updated_at: new Date(new Date().setDate(new Date().getDate() - 10))
         }
       ],
       {}

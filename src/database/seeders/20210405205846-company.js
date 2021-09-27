@@ -1,9 +1,12 @@
+const { companyX, companyY } = require('../uuid_seeders')
+
 module.exports = {
   up: async (queryInterface) => {
     await queryInterface.bulkInsert(
       'companies',
       [
         {
+          id: companyX,
           name: 'Empresa X',
           email: 'email@empresax.com',
           document: '69.989.407/0001-90',
@@ -15,11 +18,10 @@ module.exports = {
           city: 'Rio Branco',
           state: 'AC',
           telephone: '(11) 2937-7315',
-          note: 'dinossauro',
-          created_at: new Date(),
-          updated_at: new Date()
+          note: 'dinossauro'
         },
         {
+          id: companyY,
           name: 'Empresa Y',
           email: 'email@empresay.com',
           document: '51.199.983/0001-78',
@@ -31,9 +33,7 @@ module.exports = {
           city: 'São Paulo',
           state: 'SP',
           telephone: '(11) 99779-6785',
-          note: '',
-          created_at: new Date(),
-          updated_at: new Date()
+          note: ''
         }
       ],
       {}

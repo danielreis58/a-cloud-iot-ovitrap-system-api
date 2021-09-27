@@ -1,22 +1,21 @@
+const { profileAdmin, profileSupv, profileAgent } = require('../uuid_seeders')
+
 module.exports = {
   up: async (queryInterface) => {
     await queryInterface.bulkInsert(
       'profiles',
       [
         {
-          name: 'Administrador',
-          created_at: new Date(),
-          updated_at: new Date()
+          id: profileAdmin,
+          name: 'Administrador'
         },
         {
-          name: 'Supervisor',
-          created_at: new Date(),
-          updated_at: new Date()
+          id: profileSupv,
+          name: 'Supervisor'
         },
         {
-          name: 'Agente',
-          created_at: new Date(),
-          updated_at: new Date()
+          id: profileAgent,
+          name: 'Agente'
         }
       ],
       {}

@@ -1,43 +1,40 @@
+const {
+  profileAdmin,
+  profileSupv,
+  profileAgent,
+  permissionCompany,
+  permissionUser,
+  permissionOvitrap
+} = require('../uuid_seeders')
+
 module.exports = {
   up: async (queryInterface) => {
     await queryInterface.bulkInsert(
       'profile_permissions',
       [
         {
-          profile_id: 1,
-          permission_id: 1,
-          created_at: new Date(),
-          updated_at: new Date()
+          profile_id: profileAdmin,
+          permission_id: permissionCompany
         },
         {
-          profile_id: 1,
-          permission_id: 2,
-          created_at: new Date(),
-          updated_at: new Date()
+          profile_id: profileAdmin,
+          permission_id: permissionUser
         },
         {
-          profile_id: 1,
-          permission_id: 3,
-          created_at: new Date(),
-          updated_at: new Date()
+          profile_id: profileAdmin,
+          permission_id: permissionOvitrap
         },
         {
-          profile_id: 2,
-          permission_id: 2,
-          created_at: new Date(),
-          updated_at: new Date()
+          profile_id: profileSupv,
+          permission_id: permissionUser
         },
         {
-          profile_id: 2,
-          permission_id: 3,
-          created_at: new Date(),
-          updated_at: new Date()
+          profile_id: profileSupv,
+          permission_id: permissionOvitrap
         },
         {
-          profile_id: 3,
-          permission_id: 3,
-          created_at: new Date(),
-          updated_at: new Date()
+          profile_id: profileAgent,
+          permission_id: permissionOvitrap
         }
       ],
       {}
