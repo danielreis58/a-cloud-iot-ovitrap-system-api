@@ -2,6 +2,7 @@ import { responseClient, errorResponse } from '../utils/response.js'
 import { getFromToken } from '../utils/auth.js'
 import Ovitrap from '../models/ovitrap.js'
 import User from '../models/user.js'
+import { getForm, getProfileType } from '../utils/queries.js'
 
 const show = 'ovitrap'
 const index = 'ovitraps'
@@ -9,15 +10,35 @@ const index = 'ovitraps'
 export default {
   async index(req, res) {
     try {
-      const data = await Ovitrap.findAll({
-        attributes: { exclude: ['createdAt', 'updatedAt', 'company_id'] },
-        order: [['name', 'ASC']]
-      })
+      const { company: companyId, profile: profileId } = await getFromToken(
+        req.headers.authorization,
+        ['company', 'profile']
+      )
+      const profile = await getProfileType(profileId)
+      const resourceArray = profile.isAdmin ? ['users', 'companies'] : ['users']
+      const form = await getForm(companyId, profile, resourceArray)
+
+      let data = []
+      if (profile.isAdmin) {
+        data = await Ovitrap.findAll({
+          attributes: { exclude: ['createdAt', 'updatedAt', 'company_id'] },
+          order: [['name', 'ASC']]
+        })
+      } else {
+        data = await Ovitrap.findAll({
+          where: {
+            company_id: companyId
+          },
+          attributes: { exclude: ['createdAt', 'updatedAt', 'company_id'] },
+          order: [['name', 'ASC']]
+        })
+      }
 
       responseClient(res, {
         error: false,
         message: `${index} founded`,
-        data
+        data,
+        form
       })
     } catch (error) {
       errorResponse(res, error)
@@ -49,7 +70,6 @@ export default {
 
   async create(req, res) {
     try {
-      // TODO: Checek profile type
       const { company } = await getFromToken(req.headers.authorization, [
         'company'
       ])

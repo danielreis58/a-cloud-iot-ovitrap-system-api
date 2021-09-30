@@ -3,6 +3,7 @@ import { responseClient, errorResponse } from '../utils/response.js'
 import { getFromToken } from '../utils/auth.js'
 import User from '../models/user.js'
 import Profile from '../models/profile.js'
+import { getForm, getProfileType } from '../utils/queries.js'
 
 const show = 'user'
 const index = 'users'
@@ -12,17 +13,41 @@ const { Op } = pkg
 export default {
   async index(req, res) {
     try {
-      const data = await User.findAll({
-        attributes: {
-          exclude: ['createdAt', 'updatedAt', 'company_id', 'password']
-        },
-        order: [['name', 'ASC']]
-      })
+      const { company: companyId, profile: profileId } = await getFromToken(
+        req.headers.authorization,
+        ['company', 'profile']
+      )
+      const profile = await getProfileType(profileId)
+      const resourceArray = profile.isAdmin
+        ? ['profiles', 'companies']
+        : ['profiles']
+      const form = await getForm(companyId, profile, resourceArray)
+
+      let data = []
+      if (profile.isAdmin) {
+        data = await User.findAll({
+          attributes: {
+            exclude: ['createdAt', 'updatedAt', 'password']
+          },
+          order: [['name', 'ASC']]
+        })
+      } else {
+        data = await User.findAll({
+          where: {
+            company_id: companyId
+          },
+          attributes: {
+            exclude: ['createdAt', 'updatedAt', 'company_id', 'password']
+          },
+          order: [['name', 'ASC']]
+        })
+      }
 
       responseClient(res, {
         error: false,
         message: `${index} founded`,
-        data
+        data,
+        form
       })
     } catch (error) {
       errorResponse(res, error)
@@ -56,6 +81,10 @@ export default {
 
   async create(req, res) {
     try {
+      const { company } = await getFromToken(req.headers.authorization, [
+        'company'
+      ])
+
       const isRegisteredProfile = await Profile.findOne({
         where: { id: req.body.profile_id }
       })
@@ -64,17 +93,11 @@ export default {
         throw { code: 400, message: 'Profile not founded' }
       }
 
-      const { company } = await getFromToken(req.headers.authorization, [
-        'company'
-      ])
-
-      req.body.company_id = company
-
       const [data, isNew] = await User.findCreateFind({
         where: {
           email: req.body.email
         },
-        defaults: req.body
+        defaults: { ...req.body, company_id: company }
       })
 
       if (!isNew) {

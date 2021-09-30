@@ -1,6 +1,7 @@
 import Permission from '../models/permission.js'
 import Profile from '../models/profile.js'
 import User from '../models/user.js'
+import Company from '../models/company.js'
 
 export const isPermByProfile = async (profileId, source) => {
   try {
@@ -37,4 +38,71 @@ export const getPermsByProfile = async (profileId) => {
     name: e.dataValues.name
   }))
   return userPermissions
+}
+
+export const getForm = async (companyId, profile, resourceArray) => {
+  const form = {}
+  if (resourceArray.includes('users')) {
+    if (profile.isAdmin) {
+      const users = await User.findAll({
+        attributes: ['id', 'name', 'company_id']
+      })
+      form.users = users
+    } else {
+      const users = await User.findAll({
+        where: {
+          company_id: companyId
+        },
+        attributes: ['id', 'name']
+      })
+      form.users = users
+    }
+  }
+  if (resourceArray.includes('profiles')) {
+    if (profile.isAdmin) {
+      const profiles = await Profile.findAll({
+        attributes: ['id', 'name']
+      })
+      form.profiles = profiles
+    } else {
+      const profiles = await Profile.findAll({
+        where: {
+          name: ['Agente', 'Supervisor']
+        },
+        attributes: ['id', 'name']
+      })
+      form.profiles = profiles
+    }
+  }
+  if (resourceArray.includes('companies')) {
+    if (profile.isAdmin) {
+      const companies = await Company.findAll({
+        attributes: ['id', 'name']
+      })
+      form.companies = companies
+    } else {
+      const companies = await Company.findAll({
+        where: {
+          company_id: companyId
+        },
+        attributes: ['id', 'name']
+      })
+      form.companies = companies
+    }
+  }
+  return form
+}
+
+export const getProfileType = async (profileId) => {
+  const profileQuery = await Profile.findOne({
+    where: {
+      id: profileId
+    },
+    attributes: { exclude: ['createdAt', 'updatedAt'] }
+  })
+  const isAdmin = profileQuery.name === 'Administrador'
+  const isSuper = profileQuery.name === 'Supervisor'
+  const isAgent = profileQuery.name === 'Agente'
+
+  return { isAdmin, isSuper, isAgent }
 }

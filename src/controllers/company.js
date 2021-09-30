@@ -1,5 +1,7 @@
 import { responseClient, errorResponse } from '../utils/response.js'
 import Company from '../models/company.js'
+import { getProfileType } from '../utils/queries.js'
+import { getFromToken } from '../utils/auth.js'
 
 const show = 'company'
 const index = 'companies'
@@ -7,10 +9,21 @@ const index = 'companies'
 export default {
   async index(req, res) {
     try {
-      const data = await Company.findAll({
-        attributes: { exclude: ['createdAt', 'updatedAt'] },
-        order: [['name', 'ASC']]
-      })
+      const { profile: profileId } = await getFromToken(
+        req.headers.authorization,
+        ['company', 'profile']
+      )
+      const profile = await getProfileType(profileId)
+
+      let data = []
+      if (profile.isAdmin) {
+        data = await Company.findAll({
+          attributes: { exclude: ['createdAt', 'updatedAt'] },
+          order: [['name', 'ASC']]
+        })
+      } else {
+        data = []
+      }
 
       responseClient(res, {
         error: false,

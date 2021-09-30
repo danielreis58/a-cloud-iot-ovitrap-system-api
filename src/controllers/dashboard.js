@@ -1,21 +1,21 @@
 import { responseClient, errorResponse } from '../utils/response.js'
 import { getFromToken } from '../utils/auth.js'
 import { pgConnect, pgDisconnect } from '../database/connection/index.js'
+import { getProfileType } from '../utils/queries.js'
 
 const index = 'ovitraps'
 
 export default {
   async index(req, res) {
     const pgConn = await pgConnect()
-
     try {
       const lastDays = 30
 
-      const { user, profile, company } = await getFromToken(
+      const { company: companyId, profile: profileId } = await getFromToken(
         req.headers.authorization,
-        ['user', 'profile', 'company']
+        ['company', 'profile']
       )
-      console.log(user, profile, company)
+      const profile = await getProfileType(profileId)
 
       const query = {
         text: `
@@ -54,6 +54,7 @@ export default {
             ) AS DATA
           FROM
             ovitraps o
+          ${!profile.isAdmin ? `WHERE company_id = '${companyId}'` : ''}
         `,
         values: []
       }
