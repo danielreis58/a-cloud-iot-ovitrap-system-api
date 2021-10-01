@@ -110,7 +110,7 @@ export default {
     try {
       const data = await Company.destroy({
         where: {
-          id: req.params.id.split(',').map(Number)
+          id: req.params.id.split(',')
         }
       })
 
