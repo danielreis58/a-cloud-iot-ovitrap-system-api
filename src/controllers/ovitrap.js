@@ -120,18 +120,6 @@ export default {
         }
       }
 
-      if (req.body.name) {
-        const isRegisteredName = await Ovitrap.findOne({
-          where: {
-            name: req.body.name
-          }
-        })
-
-        if (isRegisteredName) {
-          throw { code: 400, message: 'Name already registered' }
-        }
-      }
-
       const [isRegistered, rowAffected] = await Ovitrap.update(req.body, {
         where: {
           id: req.params.id
