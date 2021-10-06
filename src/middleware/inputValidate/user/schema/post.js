@@ -5,7 +5,7 @@ const validate = Joi.object({
   email: Joi.string().email().required(),
   nickname: Joi.string().optional().empty(''),
   profile_id: Joi.string().uuid().required(),
-  company_id: Joi.string().uuid().required()
+  company_id: Joi.string().uuid()
 })
 
 export default validate

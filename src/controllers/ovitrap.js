@@ -21,7 +21,7 @@ export default {
       let data = []
       if (profile.isAdmin) {
         data = await Ovitrap.findAll({
-          attributes: { exclude: ['createdAt', 'updatedAt', 'company_id'] },
+          attributes: { exclude: ['createdAt', 'updatedAt'] },
           order: [['name', 'ASC']]
         })
       } else {
@@ -70,9 +70,13 @@ export default {
 
   async create(req, res) {
     try {
-      const { company } = await getFromToken(req.headers.authorization, [
+      let { company } = await getFromToken(req.headers.authorization, [
         'company'
       ])
+
+      if (req.body.company_id) {
+        company = req.body.company_id
+      }
 
       const isRegisteredUser = await User.findOne({
         where: { id: req.body.user_id }

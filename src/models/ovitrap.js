@@ -6,7 +6,9 @@ class Ovitrap extends Model {
   static init(sequelize) {
     super.init(
       {
-        name: DataTypes.STRING
+        name: DataTypes.STRING,
+        latitude: DataTypes.INTEGER,
+        longitude: DataTypes.INTEGER
       },
       {
         sequelize,
