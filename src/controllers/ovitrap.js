@@ -1,22 +1,38 @@
+import pkg from 'sequelize'
 import { responseClient, errorResponse } from '../utils/response.js'
 import { getFromToken } from '../utils/auth.js'
 import Ovitrap from '../models/ovitrap.js'
 import User from '../models/user.js'
+import Profile from '../models/profile.js'
 import { getForm, getProfileType } from '../utils/queries.js'
 
 const show = 'ovitrap'
 const index = 'ovitraps'
 
+const { Op } = pkg
+
 export default {
   async index(req, res) {
     try {
-      const { company: companyId, profile: profileId } = await getFromToken(
-        req.headers.authorization,
-        ['company', 'profile']
-      )
+      const {
+        company: companyId,
+        profile: profileId,
+        user
+      } = await getFromToken(req.headers.authorization, [
+        'company',
+        'profile',
+        'user'
+      ])
       const profile = await getProfileType(profileId)
       const resourceArray = profile.isAdmin ? ['users', 'companies'] : ['users']
       const form = await getForm(companyId, profile, resourceArray)
+
+      const { id: admProfileId } = await Profile.findOne({
+        where: {
+          name: 'Administrador'
+        },
+        attributes: { exclude: ['createdAt', 'updatedAt'] }
+      })
 
       let data = []
       if (profile.isAdmin) {
@@ -24,10 +40,27 @@ export default {
           attributes: { exclude: ['createdAt', 'updatedAt'] },
           order: [['name', 'ASC']]
         })
-      } else {
+      } else if (profile.isSuper) {
         data = await Ovitrap.findAll({
           where: {
             company_id: companyId
+          },
+          include: [
+            {
+              model: User,
+              as: 'user',
+              where: { profile_id: { [Op.ne]: admProfileId } },
+              required: true
+            }
+          ],
+          attributes: { exclude: ['createdAt', 'updatedAt', 'company_id'] },
+          order: [['name', 'ASC']]
+        })
+      } else {
+        data = await Ovitrap.findAll({
+          where: {
+            company_id: companyId,
+            user_id: user.id
           },
           attributes: { exclude: ['createdAt', 'updatedAt', 'company_id'] },
           order: [['name', 'ASC']]

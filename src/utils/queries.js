@@ -1,7 +1,10 @@
+import pkg from 'sequelize'
 import Permission from '../models/permission.js'
 import Profile from '../models/profile.js'
 import User from '../models/user.js'
 import Company from '../models/company.js'
+
+const { Op } = pkg
 
 export const isPermByProfile = async (profileId, source) => {
   try {
@@ -42,10 +45,25 @@ export const getPermsByProfile = async (profileId) => {
 
 export const getForm = async (companyId, profile, resourceArray) => {
   const form = {}
+  const { id: admProfileId } = await Profile.findOne({
+    where: {
+      name: 'Administrador'
+    },
+    attributes: { exclude: ['createdAt', 'updatedAt'] }
+  })
   if (resourceArray.includes('users')) {
     if (profile.isAdmin) {
       const users = await User.findAll({
         attributes: ['id', 'name', 'company_id']
+      })
+      form.users = users
+    } else if (profile.isSuper) {
+      const users = await User.findAll({
+        where: {
+          company_id: companyId,
+          profile_id: { [Op.ne]: admProfileId }
+        },
+        attributes: ['id', 'name']
       })
       form.users = users
     } else {
@@ -67,7 +85,7 @@ export const getForm = async (companyId, profile, resourceArray) => {
     } else {
       const profiles = await Profile.findAll({
         where: {
-          name: ['Agente', 'Supervisor']
+          id: { [Op.ne]: admProfileId }
         },
         attributes: ['id', 'name']
       })

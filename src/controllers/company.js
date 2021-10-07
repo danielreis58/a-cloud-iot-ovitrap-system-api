@@ -11,7 +11,7 @@ export default {
     try {
       const { profile: profileId } = await getFromToken(
         req.headers.authorization,
-        ['company', 'profile']
+        ['profile']
       )
       const profile = await getProfileType(profileId)
 

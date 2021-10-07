@@ -18,12 +18,16 @@ export default {
         ['company', 'profile']
       )
       const profile = await getProfileType(profileId)
-      const resourceArray = profile.isAdmin
-        ? ['profiles', 'companies']
-        : ['profiles']
-      const form = await getForm(companyId, profile, resourceArray)
+
+      const { id: admProfileId } = await Profile.findOne({
+        where: {
+          name: 'Administrador'
+        },
+        attributes: { exclude: ['createdAt', 'updatedAt'] }
+      })
 
       let data = []
+      let resourceArray = []
       if (profile.isAdmin) {
         data = await User.findAll({
           attributes: {
@@ -31,17 +35,21 @@ export default {
           },
           order: [['name', 'ASC']]
         })
+        resourceArray = ['profiles', 'companies']
       } else {
         data = await User.findAll({
           where: {
-            company_id: companyId
+            company_id: companyId,
+            profile_id: { [Op.ne]: admProfileId }
           },
           attributes: {
-            exclude: ['createdAt', 'updatedAt', 'company_id', 'password']
+            exclude: ['createdAt', 'updatedAt', 'password']
           },
           order: [['name', 'ASC']]
         })
+        resourceArray = ['profiles']
       }
+      const form = await getForm(companyId, profile, resourceArray)
 
       responseClient(res, {
         error: false,

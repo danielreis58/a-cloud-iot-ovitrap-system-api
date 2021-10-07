@@ -2,7 +2,7 @@ import Blacklist from '../models/blacklist.js'
 import User from '../models/user.js'
 import { validatePassword, createToken } from '../utils/auth.js'
 import { responseClient, errorResponse } from '../utils/response.js'
-import { getPermsByProfile } from '../utils/queries.js'
+import { getPermsByProfile, getProfileType } from '../utils/queries.js'
 
 export default {
   async login(req, res) {
@@ -35,12 +35,16 @@ export default {
         company: user.company_id
       })
 
+      const profile = await getProfileType(user.profile_id)
+
       responseClient(res, {
         error: false,
         message: 'Login success',
         data: {
           Authorization: `Bearer ${Authorization}`,
           userId: user.id,
+          companyId: user.company_id,
+          profile,
           userPermissions
         }
       })
