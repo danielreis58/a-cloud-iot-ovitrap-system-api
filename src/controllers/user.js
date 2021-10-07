@@ -4,6 +4,8 @@ import { getFromToken } from '../utils/auth.js'
 import User from '../models/user.js'
 import Profile from '../models/profile.js'
 import { getForm, getProfileType } from '../utils/queries.js'
+import sendEmail from '../services/email.js'
+import { createPassword } from '../utils/email.js'
 
 const show = 'user'
 const index = 'users'
@@ -124,9 +126,11 @@ export default {
 
   async update(req, res) {
     try {
-      if (req.body.profile_id) {
+      const { id, email, profile_id: profileId } = req.body
+
+      if (profileId) {
         const isRegisteredProfile = await Profile.findOne({
-          where: { id: req.body.profile_id }
+          where: { id: profileId }
         })
 
         if (!isRegisteredProfile) {
@@ -134,16 +138,23 @@ export default {
         }
       }
 
-      if (req.body.email) {
-        const isRegisteredEmail = await User.findOne({
+      if (email) {
+        const findUser = await User.findOne({
           where: {
-            email: { [Op.eq]: req.body.email },
-            id: { [Op.ne]: req.params.id }
+            email: { [Op.eq]: email }
           }
         })
 
-        if (isRegisteredEmail) {
-          throw { code: 400, message: 'Email already registered' }
+        if (findUser) {
+          if (findUser.id !== id) {
+            console.log(findUser.id)
+            throw { code: 400, message: 'Email already registered' }
+          }
+          if (findUser?.email !== email) {
+            sendEmail(email, 'Cadastrar nova senha', createPassword)
+          }
+        } else {
+          sendEmail(email, 'Cadastrar nova senha', createPassword)
         }
       }
 
