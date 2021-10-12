@@ -1,17 +1,34 @@
 import User from '../models/user.js'
-import { getFromToken } from '../utils/auth.js'
+import sendEmail from '../services/email.js'
+import { createToken, encryptPassword, getFromToken } from '../utils/auth.js'
+import { resetPassword } from '../utils/email.js'
 import { responseClient, errorResponse } from '../utils/response.js'
 
 export default {
   async forgot(req, res) {
     try {
-      const isRegisteredUser = await User.findOne({
+      const user = await User.findOne({
         where: { email: req.body.email }
       })
 
-      if (!isRegisteredUser) {
+      if (!user) {
         throw { code: 400, message: 'User not founded' }
       }
+
+      const token = createToken(
+        {
+          user: {
+            id: user.id,
+            name: user.name,
+            nickname: user.nickname,
+            email: user.emai
+          }
+        },
+        '30m'
+      )
+
+      const body = resetPassword(token)
+      sendEmail(user.email, 'Smart Ovitraps - Cadastrar nova senha', body)
 
       responseClient(res, {
         error: false,
@@ -23,13 +40,14 @@ export default {
   },
   async new(req, res) {
     try {
-      const { token } = req.headers
       const { password } = req.body
 
-      const { user } = await getFromToken(token, ['user'])
+      const { user } = await getFromToken(req.headers.authorization, ['user'])
+
+      const hashPassword = await encryptPassword(password)
 
       const [isRegistered] = await User.update(
-        { password },
+        { password: hashPassword },
         {
           where: {
             id: user.id

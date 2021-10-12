@@ -4,15 +4,15 @@ import bcrypt from 'bcrypt'
 const SECRET = process.env.SECRET_JWT
 const SALTS = process.env.PASSWORD_ENCRYPT_SALTS
 
-export const createToken = (obj, secret = SECRET, expiresIn = '10h') =>
+export const createToken = (obj, expiresIn = '10h', secret = SECRET) =>
   jwt.sign({ ...obj }, secret, { expiresIn })
 
 export const validatePassword = async (password, hash) =>
   bcrypt.compareSync(password, hash)
 
-export const encryptPassword = (password) => {
+export const encryptPassword = async (password) => {
   const salts = SALTS || 8
-  return bcrypt.hash(password, salts)
+  return bcrypt.hash(password, parseInt(salts, 10))
 }
 
 export const getFromToken = async (authorization, resourceArray) => {

@@ -1,11 +1,11 @@
 import pkg from 'sequelize'
 import { responseClient, errorResponse } from '../utils/response.js'
-import { getFromToken } from '../utils/auth.js'
+import { createToken, getFromToken } from '../utils/auth.js'
 import User from '../models/user.js'
 import Profile from '../models/profile.js'
 import { getForm, getProfileType } from '../utils/queries.js'
 import sendEmail from '../services/email.js'
-import { createPassword } from '../utils/email.js'
+import { createPassword, resetPassword } from '../utils/email.js'
 
 const show = 'user'
 const index = 'users'
@@ -114,6 +114,21 @@ export default {
         throw { code: 400, message: 'Email already registered' }
       }
 
+      const token = createToken(
+        {
+          user: {
+            id: data.id,
+            name: data.name,
+            nickname: data.nickname,
+            email: data.email
+          }
+        },
+        '30m'
+      )
+
+      const body = createPassword(token)
+      sendEmail(data.email, 'Smart Ovitraps - Boas vindas!', body)
+
       responseClient(res, {
         error: false,
         message: `${show} created`,
@@ -128,6 +143,12 @@ export default {
     try {
       const { id, email, profile_id: profileId } = req.body
 
+      const user = await User.findOne({
+        where: {
+          id: { [Op.eq]: id }
+        }
+      })
+
       if (profileId) {
         const isRegisteredProfile = await Profile.findOne({
           where: { id: profileId }
@@ -139,22 +160,31 @@ export default {
       }
 
       if (email) {
-        const findUser = await User.findOne({
+        const usersWithSameEmail = await User.findOne({
           where: {
+            id: { [Op.ne]: id },
             email: { [Op.eq]: email }
           }
         })
+        if (usersWithSameEmail) {
+          throw { code: 400, message: 'Email already registered' }
+        }
 
-        if (findUser) {
-          if (findUser.id !== id) {
-            console.log(findUser.id)
-            throw { code: 400, message: 'Email already registered' }
-          }
-          if (findUser?.email !== email) {
-            sendEmail(email, 'Cadastrar nova senha', createPassword)
-          }
-        } else {
-          sendEmail(email, 'Cadastrar nova senha', createPassword)
+        if (email !== user?.email) {
+          const token = createToken(
+            {
+              user: {
+                id: user.id,
+                name: user.name,
+                nickname: user.nickname,
+                email: user.email
+              }
+            },
+            '30m'
+          )
+
+          const body = resetPassword(token)
+          sendEmail(email, 'Smart Ovitraps - Cadastrar nova senha', body)
         }
       }
 
