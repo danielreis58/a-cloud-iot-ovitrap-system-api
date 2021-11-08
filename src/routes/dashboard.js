@@ -6,7 +6,7 @@ import inputValidate from '../middleware/inputValidate/dashboard/index.js'
 const routes = express.Router()
 
 routes.get(
-  '/dashboard',
+  '/dashboard/:offset',
   [authenticateToken, inputValidate],
   dashboardController.index
 )

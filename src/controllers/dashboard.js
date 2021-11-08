@@ -15,7 +15,19 @@ export default {
         req.headers.authorization,
         ['company', 'profile']
       )
+
+      const { offset } = req.params
+
       const profile = await getProfileType(profileId)
+
+      const timezone = {
+        text: `
+            SET TIMEZONE = ${-(offset / 60)};
+        `,
+        values: []
+      }
+
+      await pgConn.query(timezone)
 
       const query = {
         text: `
@@ -43,7 +55,7 @@ export default {
             ARRAY(
             SELECT
               json_build_object(
-                'date', d::date, 
+                'date', d, 
                 'total', COALESCE(cbd.number, 0)
               )
             FROM
@@ -63,7 +75,8 @@ export default {
       responseClient(res, {
         error: false,
         message: `${index} founded`,
-        data
+        data,
+        teste: 'ASDASD'
       })
     } catch (error) {
       errorResponse(res, error)
