@@ -14,6 +14,7 @@ services:
       - "traefik.frontend.rule=Host:api-smartovitraps.com"
     ports:
       - ${PROD_API_PORT}:${PROD_API_PORT}
+      - ${PROD_SOCKET_PORT}:${PROD_SOCKET_PORT}
     command: npm run start
 
   reverse-proxy:

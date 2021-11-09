@@ -23,6 +23,7 @@ services:
       - db
     ports:
       - ${LOCAL_API_PORT}:${LOCAL_API_PORT}
+      - ${LOCAL_SOCKET_PORT}:${LOCAL_SOCKET_PORT}
     command: npm run dev
     logging:
       driver: "json-file"
