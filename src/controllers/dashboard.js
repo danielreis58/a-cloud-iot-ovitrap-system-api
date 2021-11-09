@@ -75,8 +75,7 @@ export default {
       responseClient(res, {
         error: false,
         message: `${index} founded`,
-        data,
-        teste: 'ASDASD'
+        data
       })
     } catch (error) {
       errorResponse(res, error)

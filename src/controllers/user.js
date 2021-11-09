@@ -91,9 +91,20 @@ export default {
 
   async create(req, res) {
     try {
-      const { company } = await getFromToken(req.headers.authorization, [
+      let { company } = await getFromToken(req.headers.authorization, [
         'company'
       ])
+
+      const { profile: profileId } = await getFromToken(
+        req.headers.authorization,
+        ['profile']
+      )
+
+      const profile = await getProfileType(profileId)
+
+      if (profile.isAdmin) {
+        company = req.body.company_id
+      }
 
       const isRegisteredProfile = await Profile.findOne({
         where: { id: req.body.profile_id }
