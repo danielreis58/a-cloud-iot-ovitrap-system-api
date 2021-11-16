@@ -3,6 +3,7 @@ import User from '../models/user.js'
 import { validatePassword, createToken } from '../utils/auth.js'
 import { responseClient, errorResponse } from '../utils/response.js'
 import { getPermsByProfile, getProfileType } from '../utils/queries.js'
+import Company from '../models/company.js'
 
 export default {
   async login(req, res) {
@@ -11,6 +12,12 @@ export default {
 
       const user = await User.findOne({
         where: { email },
+        include: [
+          {
+            model: Company,
+            as: 'company'
+          }
+        ],
         attributes: { exclude: ['createdAt', 'updatedAt'] }
       })
       if (!user) {
@@ -44,6 +51,7 @@ export default {
           Authorization: `Bearer ${Authorization}`,
           userId: user.id,
           companyId: user.company_id,
+          companyName: user.company.name,
           profile,
           userPermissions
         }
